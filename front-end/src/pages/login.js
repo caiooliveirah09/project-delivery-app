@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
   const [isInvalid, setIsInvalid] = useState(false);
+  const [data, setDate] = useState({})
+  const navigate = useNavigate()
 
   const validateEmailAndPassword = () => {
     const minLengthPassword = 6;
@@ -13,12 +16,15 @@ function Login() {
     return !(emailRegex.test(email) && password.length >= minLengthPassword);
   };
 
-  const getEmail = async () => {
+  const Login = async () => {
     try {
-      const result = await api.post("/login", { email });
+      const result = await api.post("/login", { email, password });
+      setDate(result.data)
+      navigate('/customer/products')
     } catch (error) {
       setIsInvalid(true);
     }
+
   };
 
   useEffect(() => {
@@ -44,7 +50,7 @@ function Login() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button
-        onClick={getEmail}
+        onClick={Login}
         type="button"
         data-testid="common_login__button-login"
         disabled={isDisabled}

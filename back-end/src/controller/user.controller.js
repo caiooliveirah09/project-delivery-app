@@ -1,12 +1,13 @@
-const userService = require("../service/user.service")
+const userService = require("../service/user.service");
 
-const findUser = async (req, res) => {
-  const { email } = req.body;
+const validateLogin = async (req, res) => {
+  const { email, password } = req.body;
 
-  const { status, message } = await userService.findUser(email);
+  const { status, message } = await userService.validateLogin(email, password);
+
   return res.status(status).json(message);
-}
+};
 
 module.exports = {
-  findUser,
-}
+  validateLogin,
+};
