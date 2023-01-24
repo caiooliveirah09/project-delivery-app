@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { api } from "../services/api";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import appContext from '../context/appContext';
+import { api } from '../services/api';
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [isInvalid, setIsInvalid] = useState(false);
-  const [data, setDate] = useState({})
-  const navigate = useNavigate()
+  const { setUserData } = useContext(appContext);
+  const navigate = useNavigate();
 
   const validateEmailAndPassword = () => {
     const minLengthPassword = 6;
@@ -16,15 +17,15 @@ function Login() {
     return !(emailRegex.test(email) && password.length >= minLengthPassword);
   };
 
-  const Login = async () => {
+  const login = async () => {
     try {
-      const result = await api.post("/login", { email, password });
-      setDate(result.data)
-      navigate('/customer/products')
+      const result = await api.post('/login', { email, password });
+      setUserData(result.data);
+      localStorage.setItem('userData', JSON.stringify(result.data));
+      navigate('/customer/products');
     } catch (error) {
       setIsInvalid(true);
     }
-
   };
 
   useEffect(() => {
@@ -38,22 +39,22 @@ function Login() {
         type="email"
         placeholder="email"
         name="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={ email }
+        onChange={ (e) => setEmail(e.target.value) }
       />
       <input
         data-testid="common_login__input-password"
         type="password"
         name="password"
         placeholder="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={ password }
+        onChange={ (e) => setPassword(e.target.value) }
       />
       <button
-        onClick={Login}
+        onClick={ login }
         type="button"
         data-testid="common_login__button-login"
-        disabled={isDisabled}
+        disabled={ isDisabled }
       >
         Login
       </button>
