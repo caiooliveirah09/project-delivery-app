@@ -19,7 +19,7 @@ function PostCategorySchema (sequelize, DataTypes) {
     underscored: true,
   });
 
-  SaleProductTable.associate = (models) => {
+  /* SaleProductTable.associate = (models) => {
     models.Sale.belongsToMany(models.Product, {
       through: SaleProductTable,
       as: 'products',
@@ -33,7 +33,7 @@ function PostCategorySchema (sequelize, DataTypes) {
       foreignKey: 'product_id',
       otherKey: 'sale_id'
     });
-  }
+  } */
 
   return SaleProductTable;
 
