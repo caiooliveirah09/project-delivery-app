@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
 function Register() {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
-  // const [isInvalid, setIsInvalid] = useState(false);
+  const navigate = useNavigate();
+  const [isInvalid, setIsInvalid] = useState(false);
   // const { setUserData } = useContext(appContext);
-  // const navigate = useNavigate();
 
   const validateUserData = () => {
     const minLengthPassword = 6;
@@ -19,14 +21,15 @@ function Register() {
     && userName.length >= minLengthUserName);
   };
 
-  // const register = async () => {
-  //   try {
-  //     const result = await api.post('/login', { email, password });
-  //     navigate('/register');
-  //   } catch (error) {
-  //     setIsInvalid(true);
-  //   }
-  // };
+  const register = async () => {
+    try {
+      const result = await api.post('/register', { name: userName, email, password });
+      console.log(result);
+      navigate('/customer/products');
+    } catch (error) {
+      setIsInvalid(true);
+    }
+  };
 
   useEffect(() => {
     setIsDisabled(validateUserData());
@@ -61,16 +64,16 @@ function Register() {
       <button
         type="button"
         data-testid="common_register__button-register"
-        // onClick={ register }
+        onClick={ register }
         disabled={ isDisabled }
       >
         Register
       </button>
-      {/* {isInvalid && ( */}
-      <p data-testid="common_register__element-invalid_register">
-        Registro invalido
-      </p>
-      {/* )} */}
+      {isInvalid && (
+        <p data-testid="common_register__element-invalid_register">
+          Registro invalido
+        </p>
+      )}
     </div>
   );
 }
