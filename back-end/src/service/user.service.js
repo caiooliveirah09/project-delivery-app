@@ -13,7 +13,7 @@ const validateLogin = async (email, password) => {
   if (!user) return { status: 404, message: { message: 'Not Found' } };
 
   const result = validatePassword(password, user.password);
-  if (!result) return { status: 401, message: { message: ' Email or Passwor Incorrect' } };
+  if (!result) return { status: 401, message: { message: ' Email or Password Incorrect' } };
   return { status: 200, message: user };
 };
 
