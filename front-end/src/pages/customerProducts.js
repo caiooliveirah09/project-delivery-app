@@ -1,9 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import api from '../services/api';
 
 function CustomerProducts() {
   const [products, setProducts] = useState([]);
   const [apiIsLoaded, setApiIsLoaded] = useState(false);
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user')));
+  const navigate = useNavigate();
+
+  const logout = () => {
+    setUserData({});
+    localStorage.clear();
+    navigate('/login');
+  };
+
   useEffect(() => {
     async function getProducts() {
       const result = await api.get('/products');
@@ -33,10 +44,11 @@ function CustomerProducts() {
           data-testid="customer_products__element-navbar-user-full-name"
           type="button"
         >
-          Nome da pessoa
+          { userData.name }
 
         </button>
         <button
+          onClick={ logout }
           data-testid="customer_products__element-navbar-link-logout"
           type="button"
         >
