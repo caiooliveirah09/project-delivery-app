@@ -8,6 +8,13 @@ const validateLogin = async (req, res) => {
   return res.status(status).json(message);
 };
 
+const createUser = async (req, res) => {
+  const { status, message } = await userService.createUser(req.body);
+
+  return res.status(status).json(message);
+};
+
 module.exports = {
   validateLogin,
+  createUser,
 };
