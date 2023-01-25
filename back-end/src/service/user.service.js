@@ -13,27 +13,27 @@ const validateLogin = async (email, password) => {
   if (!user) return { status: 404, message: { message: 'Not Found' } };
 
   const result = validatePassword(password, user.password);
-  if (!result) return { status: 401, message: { message: ' Email or Passwor Incorrect' } };
+  if (!result) return { status: 401, message: { message: ' Email or Password Incorrect' } };
   return { status: 200, message: user };
 };
 
 const createUser = async (userData) => {
-  const {name, email, password} = userData
+  const { name, email, password } = userData;
   const userEmail = await findUser(email);
   const userName = await findUser(name);
   
-  if(userEmail || userName) {
-    return { status: 409, message: 'user already register'}
-  };
+  if (userEmail || userName) {
+    return { status: 409, message: 'user already register' };
+  }
   
-  const hash = createHash(password)
-  const newUser = await User.create({name, email, password: hash, role: 'customer'});
+  const hash = createHash(password);
+  const newUser = await User.create({ name, email, password: hash, role: 'customer' });
 
-  return { status: 201, message: newUser };;
+  return { status: 201, message: newUser };
 };
 
 module.exports = {
   findUser,
   validateLogin,
-  createUser
+  createUser,
 };

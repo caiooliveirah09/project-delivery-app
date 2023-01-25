@@ -10,5 +10,5 @@ function createHash(password) {
 
 module.exports = {
   validatePassword,
-  createHash
+  createHash,
 };
