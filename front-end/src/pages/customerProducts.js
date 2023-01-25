@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Card from '../components/card';
+import Nav from '../components/nav';
 import api from '../services/api';
 
 function CustomerProducts() {
@@ -23,74 +24,26 @@ function CustomerProducts() {
     }
     getProducts();
   }, []);
+
+  useEffect(() => {
+    async function validateToken(token) {
+      const result = await api.post('/validateToken', { token });
+      return result;
+    }
+    if (userData) {
+      const { token } = userData;
+      if (!validateToken(token)) navigate('/login');
+    } else {
+      navigate('/login');
+    }
+  }, []);
+
   return (
     <div>
-      <nav>
-        <button
-          data-testid="customer_products__element-navbar-link-products"
-          type="button"
-        >
-          PRODUTOS
-
-        </button>
-        <button
-          data-testid="customer_products__element-navbar-link-orders"
-          type="button"
-        >
-          MEUS PEDIDOS
-
-        </button>
-        <button
-          data-testid="customer_products__element-navbar-user-full-name"
-          type="button"
-        >
-          { userData.name }
-
-        </button>
-        <button
-          onClick={ logout }
-          data-testid="customer_products__element-navbar-link-logout"
-          type="button"
-        >
-          Sair
-
-        </button>
-      </nav>
+      { userData && <Nav userData={ userData } logout={ logout } />}
       <div>
         { apiIsLoaded && products.map((product) => (
-          <div key={ product.id }>
-            <p
-              data-testid={ `customer_products__element-card-price-${product.id}` }
-            >
-              { product.price }
-            </p>
-            <img
-              data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-              src={ product.urlImage }
-              alt={ product.name }
-              style={ { width: 100 } }
-            />
-            <p data-testid={ `customer_products__element-card-title-${product.id}` }>
-              { product.name }
-            </p>
-            <button
-              data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-              type="button"
-            >
-              -
-
-            </button>
-            <input
-              data-testid={ `customer_products__input-card-quantity-${product.id}` }
-            />
-            <button
-              data-testid={ `customer_products__button-card-add-item-${product.id}` }
-              type="button"
-            >
-              +
-
-            </button>
-          </div>
+          <Card key={ product.id } product={ product } />
         ))}
       </div>
       <div>
