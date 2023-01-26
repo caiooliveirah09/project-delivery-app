@@ -31,7 +31,8 @@ const createUser = async (userData) => {
   }
   
   const hash = createHash(userData.password);
-  const newUser = await User.create({ name, email, password: hash, role: 'customer' });
+  const newUser = await User
+    .create({ name, email, password: hash, role: userData.role || 'customer' });
   const { password, id, ...notPassword } = newUser.dataValues;
 
   const token = createToken(notPassword);

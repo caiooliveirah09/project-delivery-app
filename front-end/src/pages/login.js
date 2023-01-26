@@ -18,12 +18,9 @@ function Login() {
   };
 
   const handleNavigate = (role) => {
-    let route = '';
-    if (role === 'customer') { route = '/customer/products'; }
-    if (role === 'seller') { route = '/seller/orders'; }
-    if (role === 'administrator') { route = '/admin/manage'; }
-
-    return route;
+    if (role === 'customer') { return navigate('/customer/products'); }
+    if (role === 'seller') { return navigate('/seller/orders'); }
+    if (role === 'administrator') { return navigate('/admin/manage'); }
   };
 
   const login = async () => {
@@ -31,8 +28,7 @@ function Login() {
       const result = await api.post('/login', { email, password });
       setUserData(result.data);
       localStorage.setItem('user', JSON.stringify(result.data));
-      const route = handleNavigate(result.data.role);
-      navigate(route);
+      handleNavigate(result.data.role);
     } catch (error) {
       setIsInvalid(true);
     }
