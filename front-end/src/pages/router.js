@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import Login from './login';
+import CustomerProducts from './customerProducts';
 import Register from './register';
 
 function Router() {
@@ -8,6 +9,7 @@ function Router() {
       <Routes>
         <Route path="/" element={ <Navigate to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
+        <Route path="/customer/products" element={ <CustomerProducts /> } />
         <Route path="/register" element={ <Register /> } />
       </Routes>
     </BrowserRouter>

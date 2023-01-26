@@ -4,6 +4,8 @@ const router = require('../routes/router');
 
 const app = express();
 
+app.use('/images', express.static('public'));
+
 app.use(cors());
 
 app.use(express.json());

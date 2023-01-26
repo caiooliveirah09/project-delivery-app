@@ -21,7 +21,7 @@ function Login() {
     try {
       const result = await api.post('/login', { email, password });
       setUserData(result.data);
-      localStorage.setItem('userData', JSON.stringify(result.data));
+      localStorage.setItem('user', JSON.stringify(result.data));
       navigate('/customer/products');
     } catch (error) {
       setIsInvalid(true);
