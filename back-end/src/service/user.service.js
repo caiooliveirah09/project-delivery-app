@@ -1,6 +1,6 @@
 const { User } = require('../database/models');
 const { createToken } = require('../utils/jwt.utils');
-const { validatePassword } = require('../utils/md5utils');
+const { validatePassword, createHash } = require('../utils/md5utils');
 
 const findUser = async (email) => {
   const user = await User.findOne({ where: { email } });
@@ -21,7 +21,23 @@ const validateLogin = async (email, senha) => {
   return { status: 200, message: { ...notPassword, token } };
 };
 
+const createUser = async (userData) => {
+  const { name, email, password } = userData;
+  const userEmail = await findUser(email);
+  const userName = await findUser(name);
+  
+  if (userEmail || userName) {
+    return { status: 409, message: 'user already register' };
+  }
+  
+  const hash = createHash(password);
+  const newUser = await User.create({ name, email, password: hash, role: 'customer' });
+
+  return { status: 201, message: newUser };
+};
+
 module.exports = {
   findUser,
-  validateLogin, 
+  validateLogin,
+  createUser,
 };

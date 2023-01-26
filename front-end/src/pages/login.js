@@ -58,8 +58,12 @@ function Login() {
       >
         Login
       </button>
-      <button type="button" data-testid="common_login__button-register">
-        Ainda não tenho conta
+      <button
+        type="button"
+        data-testid="common_login__button-register"
+        onClick={ () => navigate('/register') }
+      >
+        Register
       </button>
       {isInvalid && (
         <p data-testid="common_login__element-invalid-email">Email invalido</p>
