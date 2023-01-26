@@ -29,19 +29,6 @@ function CustomerProducts() {
   }, []);
 
   useEffect(() => {
-    async function validateToken(token) {
-      const result = await api.post('/validateToken', { token });
-      return result;
-    }
-    if (userData) {
-      const { token } = userData;
-      if (!validateToken(token)) navigate('/login');
-    } else {
-      navigate('/login');
-    }
-  }, []);
-
-  useEffect(() => {
     localStorage.setItem('expense', expense.toFixed(2).replace(/\./, ','));
     if (expense > 0) {
       setIsDisabled(false);

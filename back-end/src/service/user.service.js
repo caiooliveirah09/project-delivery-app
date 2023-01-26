@@ -22,7 +22,7 @@ const validateLogin = async (email, senha) => {
 };
 
 const createUser = async (userData) => {
-  const { name, email, password } = userData;
+  const { name, email } = userData;
   const userEmail = await findUser(email);
   const userName = await findUser(name);
   
@@ -30,10 +30,12 @@ const createUser = async (userData) => {
     return { status: 409, message: 'user already register' };
   }
   
-  const hash = createHash(password);
+  const hash = createHash(userData.password);
   const newUser = await User.create({ name, email, password: hash, role: 'customer' });
+  const { password, id, ...notPassword } = newUser.dataValues;
 
-  return { status: 201, message: newUser };
+  const token = createToken(notPassword);
+  return { status: 201, message: { ...notPassword, token } };
 };
 
 module.exports = {
