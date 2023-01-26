@@ -5,11 +5,23 @@ function Admin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
-  // const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const validateUserData = () => {
+    const minLengthPassword = 6;
+    const minLengthUserName = 12;
+    const emailRegex = /\S+@\S+\.\S+/;
+
+    return !(
+      emailRegex.test(email)
+      && password.length >= minLengthPassword
+      && userName.length >= minLengthUserName
+    );
+  };
 
   useEffect(() => {
-
-  }, []);
+    setIsDisabled(validateUserData());
+  }, [userName, email, password, role]);
 
   return (
     <fieldset>
@@ -38,20 +50,18 @@ function Admin() {
         />
         <select
           data-testid="admin_manage__select-role"
-          type="text"
-          placeholder="role"
           value={ role }
           onChange={ (e) => setRole(e.target.value) }
         >
           <option value="customer">customer</option>
-          <option value="customer">seller</option>
-          <option value="customer">administrator</option>
+          <option value="seller">seller</option>
+          <option value="administrator">administrator</option>
         </select>
         <button
           type="button"
           data-testid="admin_manage__button-register"
-          // onClick={ register }
-          // disabled={ isDisabled }
+          onClick={ () => {} }
+          disabled={ isDisabled }
         >
           Register
         </button>
