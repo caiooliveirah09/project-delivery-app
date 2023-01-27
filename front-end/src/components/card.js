@@ -33,7 +33,7 @@ function Card(props) {
   }, [quantity]);
 
   return (
-    <div style={ { border: '2px solid red' } }>
+    <div style={ { border: '2px solid #3f3d56' } }>
       <p
         data-testid={ `customer_products__element-card-price-${id}` }
       >
