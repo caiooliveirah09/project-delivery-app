@@ -14,7 +14,14 @@ const createUser = async (req, res) => {
   return res.status(status).json(message);
 };
 
+const getSellers = async (req, res) => {
+  const { status, message } = await userService.getSellers();
+
+  return res.status(status).json(message);
+};
+
 module.exports = {
   validateLogin,
   createUser,
+  getSellers,
 };

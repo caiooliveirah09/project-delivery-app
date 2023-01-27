@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Nav from '../components/nav';
+import api from '../services/api';
 
 function CustomerCheckout() {
   const [cart, setCart] = useState();
   const [expense, setExpense] = useState();
+  const [sellers, setSellers] = useState();
+  const [seller, setSeller] = useState();
+  const [deliveryAddress, setDeliveryAddress] = useState();
+  const [deliveryNumber, setDeliveryNumber] = useState();
+  const [status] = useState('Pendente');
   const items = [
     'Item',
     'Descrição',
@@ -13,21 +20,31 @@ function CustomerCheckout() {
     'Remover Item',
   ];
   const custom = 'customer_checkout__';
+  const navigate = useNavigate();
 
   const removeItem = ({ target }) => {
     const newCart = cart.filter((product, index) => index !== Number(target.id));
     setCart(newCart);
   };
 
-  function getCartItems() {
-    const allCart = JSON.parse(localStorage.getItem('cart'));
-    const newCart = allCart.filter((element) => element.quantity > 0);
-    setCart(newCart);
-  }
+  useEffect(() => {
+    const getCartItems = () => {
+      const allCart = JSON.parse(localStorage.getItem('cart'));
+      const newCart = allCart.filter((element) => element.quantity > 0);
+      setCart(newCart);
+    };
+
+    const getSellers = async () => {
+      const result = await api.get('/users/sellers');
+      setSellers(result.data);
+    };
+    getCartItems();
+    getSellers();
+  }, []);
 
   useEffect(() => {
-    getCartItems();
-  }, []);
+    if (sellers) setSeller(sellers[0].id);
+  }, [sellers]);
 
   useEffect(() => {
     if (cart) {
@@ -36,6 +53,28 @@ function CustomerCheckout() {
       setExpense(expenseItem.toFixed(2).replace(/\./, ','));
     }
   }, [cart]);
+
+  const submitOrder = async () => {
+    const { token, id } = JSON.parse(localStorage.getItem('user'));
+    const result = await api.post(
+      '/sales',
+      { totalPrice: expense,
+        deliveryAddress,
+        deliveryNumber,
+        saleDate: new Date(),
+        status,
+        userId: id,
+        sellerId: seller,
+        cart,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      },
+    );
+    navigate(`customer/orders/${result.data.id}`);
+  };
 
   return (
     <div>
@@ -110,14 +149,31 @@ function CustomerCheckout() {
         </span>
       </div>
       <div>
-        <select data-testid="customer_checkout__select-seller">
-          <option>d</option>
+        <select
+          data-testid="customer_checkout__select-seller"
+          onChange={ ({ target }) => setSeller(target.value) }
+        >
+          { sellers && sellers
+            .map((element, i) => (
+              <option
+                value={ element.id }
+                key={ i }
+              >
+                { element.name }
+              </option>))}
         </select>
-        <input data-testid="customer_checkout__input-address" />
-        <input data-testid="customer_checkout__input-address-number" />
+        <input
+          data-testid="customer_checkout__input-address"
+          onChange={ ({ target }) => setDeliveryAddress(target.value) }
+        />
+        <input
+          data-testid="customer_checkout__input-address-number"
+          onChange={ ({ target }) => setDeliveryNumber(target.value) }
+        />
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
+          onClick={ submitOrder }
         >
           Finalizar input
         </button>

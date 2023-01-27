@@ -23,6 +23,13 @@ module.exports = {
         email: 'zebirita@email.com',
         password: '1c37466c159755ce1fa181bd247cb925',
         role: 'customer',
+      },
+      {
+        id: 4,
+        name: 'Fi do zé',
+        email: 'fidoze@email.com',
+        password: '123456',
+        role: 'seller'
       }
     ],
   {});
