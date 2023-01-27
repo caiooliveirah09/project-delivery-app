@@ -5,6 +5,7 @@ import Register from './register';
 import Admin from './admin';
 import SellerOrders from './sellerOrders';
 import CustomerCheckout from './customerCheckout';
+import CustomerOrders from './customerOrders';
 
 function Router() {
   return (
@@ -17,6 +18,7 @@ function Router() {
         <Route path="/admin/manage" element={ <Admin /> } />
         <Route path="/seller/orders" element={ <SellerOrders /> } />
         <Route path="/customer/checkout" element={ <CustomerCheckout /> } />
+        <Route path="/customer/orders" element={ <CustomerOrders /> } />
       </Routes>
     </BrowserRouter>
   );
