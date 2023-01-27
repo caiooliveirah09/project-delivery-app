@@ -22,6 +22,12 @@ const createSale = async (body) => {
   return { status: 201, message: sale };
 };
 
+const getAllSales = async () => {
+  const products = await Sale.findAll();
+  return { status: 200, message: products };
+};
+
 module.exports = {
   createSale,
+  getAllSales,
 };
