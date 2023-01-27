@@ -7,9 +7,8 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
-  const navigate = useNavigate();
   const [isInvalid, setIsInvalid] = useState(false);
-  // const { setUserData } = useContext(appContext);
+  const navigate = useNavigate();
 
   const validateUserData = () => {
     const minLengthPassword = 6;
@@ -71,7 +70,7 @@ function Register() {
       </button>
       {isInvalid && (
         <p data-testid="common_register__element-invalid_register">
-          Registro invalido
+          Invalid Register
         </p>
       )}
     </div>

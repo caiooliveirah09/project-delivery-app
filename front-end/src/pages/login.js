@@ -17,12 +17,18 @@ function Login() {
     return !(emailRegex.test(email) && password.length >= minLengthPassword);
   };
 
+  const handleNavigate = (role) => {
+    if (role === 'customer') { return navigate('/customer/products'); }
+    if (role === 'seller') { return navigate('/seller/orders'); }
+    if (role === 'administrator') { return navigate('/admin/manage'); }
+  };
+
   const login = async () => {
     try {
       const result = await api.post('/login', { email, password });
       setUserData(result.data);
       localStorage.setItem('user', JSON.stringify(result.data));
-      navigate('/customer/products');
+      handleNavigate(result.data.role);
     } catch (error) {
       setIsInvalid(true);
     }
