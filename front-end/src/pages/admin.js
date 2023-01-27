@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Nav from '../components/nav';
 import api from '../services/api';
 
 function Admin() {
-  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user')));
-
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,8 +10,6 @@ function Admin() {
 
   const [isDisabled, setIsDisabled] = useState(true);
   const [isInvalid, setIsInvalid] = useState(false);
-
-  const navigate = useNavigate();
 
   const validateUserData = () => {
     const minLengthPassword = 6;
@@ -30,19 +25,19 @@ function Admin() {
 
   const register = async () => {
     try {
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      if (!token) { return 'token is required'; }
+
+      const userData = { name: userName, email, password, role };
+
       const result = await api
-        .post('/register', { name: userName, email, password, role });
+        .post('/register', userData, { headers: { Authorization: token } });
+
       localStorage.setItem('user', JSON.stringify(result.data));
     } catch (error) {
       console.log(error);
       setIsInvalid(true);
     }
-  };
-
-  const logout = () => {
-    setUserData({});
-    localStorage.removeItem('user');
-    navigate('/login');
   };
 
   useEffect(() => {
@@ -51,7 +46,7 @@ function Admin() {
 
   return (
     <>
-      { userData && <Nav userData={ userData } logout={ logout } />}
+      <Nav />
       <fieldset>
         <legend>Admin Manage Users</legend>
         <div>
@@ -95,7 +90,7 @@ function Admin() {
           </button>
         </div>
         {isInvalid && (
-          <p data-testid="common_register__element-invalid_register">Invalid Register</p>
+          <p data-testid="admin_manage__element-invalid-register">Invalid Register</p>
         )}
       </fieldset>
     </>
