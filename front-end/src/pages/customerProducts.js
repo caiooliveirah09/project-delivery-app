@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Card from '../components/card';
 import Nav from '../components/nav';
+import Card from '../components/card';
 import api from '../services/api';
 
 function CustomerProducts() {
   const [products, setProducts] = useState([]);
   const [apiIsLoaded, setApiIsLoaded] = useState(false);
-  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user')));
   const [expense, setExpense] = useState(0);
   const [isDisabled, setIsDisabled] = useState(true);
   const navigate = useNavigate();
-  const logout = () => {
-    setUserData({});
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
 
   useEffect(() => {
     async function getProducts() {
@@ -39,7 +33,7 @@ function CustomerProducts() {
 
   return (
     <div>
-      { userData && <Nav userData={ userData } logout={ logout } />}
+      <Nav />
       <div>
         { apiIsLoaded && products.map((product) => (
           <Card key={ product.id } product={ product } setExpense={ setExpense } />
