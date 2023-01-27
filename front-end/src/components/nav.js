@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Nav() {
   const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user')));
   const navigate = useNavigate();
+
   const logout = () => {
     setUserData({});
     localStorage.removeItem('user');
@@ -18,30 +19,25 @@ export default function Nav() {
         type="button"
       >
         PRODUTOS
-
       </button>
       <button
         data-testid="customer_products__element-navbar-link-orders"
         type="button"
       >
         MEUS PEDIDOS
-
       </button>
       <button
         data-testid="customer_products__element-navbar-user-full-name"
         type="button"
       >
-
-        {userData && userData.name }
-
+        <strong>{userData && userData.name }</strong>
       </button>
       <button
         onClick={ logout }
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
       >
-        Sair
-
+        SAIR
       </button>
     </nav>
   );
