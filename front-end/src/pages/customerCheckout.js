@@ -73,7 +73,7 @@ function CustomerCheckout() {
         },
       },
     );
-    navigate(`customer/orders/${result.data.id}`);
+    navigate(`/customer/orders/${result.data.id}`);
   };
 
   return (

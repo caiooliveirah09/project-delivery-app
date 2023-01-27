@@ -14,14 +14,21 @@ const createUser = async (req, res) => {
   return res.status(status).json(message);
 };
 
-const getSellers = async (req, res) => {
-  const { status, message } = await userService.getSellers();
+const findAllSellers = async (req, res) => {
+  const { status, message } = await userService.findAllSellers();
 
+  return res.status(status).json(message);
+};
+
+const findUserById = async (req, res) => {
+  const { id } = req.params;
+  const { status, message } = await userService.findUserById(id);
   return res.status(status).json(message);
 };
 
 module.exports = {
   validateLogin,
   createUser,
-  getSellers,
+  findAllSellers,
+  findUserById,
 };

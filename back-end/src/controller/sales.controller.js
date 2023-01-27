@@ -5,6 +5,13 @@ const createSale = async (req, res) => {
   return res.status(status).json(message);
 };
 
+const getSale = async (req, res) => {
+  const { id } = req.params;
+  const { status, message } = await salesService.getSale(id);
+  return res.status(status).json(message);
+};
+
 module.exports = {
   createSale,
+  getSale,
 };
