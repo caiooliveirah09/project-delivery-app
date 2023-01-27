@@ -8,10 +8,14 @@ const createSale = async (req, res) => {
 const getSale = async (req, res) => {
   const { id } = req.params;
   const { status, message } = await salesService.getSale(id);
+
+const getAllSales = async (req, res) => {
+  const { status, message } = await salesService.getAllSales();
   return res.status(status).json(message);
 };
 
 module.exports = {
   createSale,
   getSale,
+  getAllSales,
 };

@@ -28,9 +28,14 @@ const getSale = async (id) => {
       where: { id },
       include: [{ model: Product, as: 'products', through: { attributes: ['quantity'] } }] });
   return { status: 200, message: sale };
+
+const getAllSales = async () => {
+  const products = await Sale.findAll();
+  return { status: 200, message: products };
 };
 
 module.exports = {
   createSale,
   getSale,
+  getAllSales,
 };

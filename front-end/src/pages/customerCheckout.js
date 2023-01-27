@@ -67,11 +67,7 @@ function CustomerCheckout() {
         sellerId: seller,
         cart,
       },
-      {
-        headers: {
-          Authorization: token,
-        },
-      },
+      { headers: { Authorization: token } },
     );
     navigate(`/customer/orders/${result.data.id}`);
   };
@@ -81,7 +77,6 @@ function CustomerCheckout() {
       <Nav />
       <div>
         {cart
-
           ? (
             <table>
               <thead>
@@ -94,37 +89,31 @@ function CustomerCheckout() {
               <tbody>
                 { cart.map((product, index) => (
                   <tr key={ index }>
-                    <th
+                    <td
                       data-testid={ `${custom}element-order-table-item-number-${index}` }
                     >
                       {index + 1}
-                    </th>
-                    <th
+                    </td>
+                    <td
                       data-testid={ `${custom}element-order-table-name-${index}` }
                     >
                       {product.name}
-
-                    </th>
-                    <th
+                    </td>
+                    <td
                       data-testid={ `${custom}element-order-table-quantity-${index}` }
                     >
                       {product.quantity}
-
-                    </th>
-                    <th
+                    </td>
+                    <td
                       data-testid={ `${custom}element-order-table-unit-price-${index}` }
                     >
                       {product.price.replace(/\./, ',')}
-
-                    </th>
-
-                    <th
+                    </td>
+                    <td
                       data-testid={ `${custom}element-order-table-sub-total-${index}` }
                     >
                       {(product.price * product.quantity).toFixed(2).replace(/\./, ',')}
-
-                    </th>
-
+                    </td>
                     <th>
                       <button
                         data-testid={ `${custom}element-order-table-remove-${index}` }
@@ -133,20 +122,20 @@ function CustomerCheckout() {
                         id={ index }
                       >
                         REMOVE
-
                       </button>
                     </th>
                   </tr>
                 ))}
               </tbody>
-            </table>) : <p>Carregandodo</p>}
-        <span>Total: R$</span>
-        <span
-          data-testid={ `${custom}element-order-total-price` }
-        >
-          {expense}
-
-        </span>
+            </table>) : <p>Carregando</p>}
+        <strong>
+          <span>Total: R$</span>
+          <span
+            data-testid={ `${custom}element-order-total-price` }
+          >
+            {expense}
+          </span>
+        </strong>
       </div>
       <div>
         <select
@@ -164,10 +153,12 @@ function CustomerCheckout() {
         </select>
         <input
           data-testid="customer_checkout__input-address"
+          placeholder="Address"
           onChange={ ({ target }) => setDeliveryAddress(target.value) }
         />
         <input
           data-testid="customer_checkout__input-address-number"
+          placeholder="Address Number"
           onChange={ ({ target }) => setDeliveryNumber(target.value) }
         />
         <button
@@ -175,7 +166,7 @@ function CustomerCheckout() {
           data-testid="customer_checkout__button-submit-order"
           onClick={ submitOrder }
         >
-          Finalizar input
+          CHECKOUT
         </button>
       </div>
     </div>
