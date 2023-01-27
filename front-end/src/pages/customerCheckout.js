@@ -14,6 +14,11 @@ function CustomerCheckout() {
   ];
   const custom = 'customer_checkout__';
 
+  const removeItem = ({ target }) => {
+    const newCart = cart.filter((product, index) => index !== Number(target.id));
+    setCart(newCart);
+  };
+
   function getCartItems() {
     const allCart = JSON.parse(localStorage.getItem('cart'));
     const newCart = allCart.filter((element) => element.quantity > 0);
@@ -85,6 +90,8 @@ function CustomerCheckout() {
                       <button
                         data-testid={ `${custom}element-order-table-remove-${index}` }
                         type="button"
+                        onClick={ removeItem }
+                        id={ index }
                       >
                         REMOVE
 
