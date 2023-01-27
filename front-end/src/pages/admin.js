@@ -25,8 +25,14 @@ function Admin() {
 
   const register = async () => {
     try {
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      if (!token) { return 'token is required'; }
+
+      const userData = { name: userName, email, password, role };
+
       const result = await api
-        .post('/register', { name: userName, email, password, role });
+        .post('/register', userData, { headers: { Authorization: token } });
+
       localStorage.setItem('user', JSON.stringify(result.data));
     } catch (error) {
       console.log(error);
@@ -84,7 +90,7 @@ function Admin() {
           </button>
         </div>
         {isInvalid && (
-          <p data-testid="common_register__element-invalid_register">Invalid Register</p>
+          <p data-testid="admin_manage__element-invalid-register">Invalid Register</p>
         )}
       </fieldset>
     </>

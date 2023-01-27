@@ -13,4 +13,26 @@ const validateToken = (token) => {
   return data;
 };
 
-module.exports = { createToken, validateToken };
+const validateTokenMiddleware = async (req, _res, next) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) { 
+    const error = { status: 404, message: 'token is required' };
+    throw error;
+  }
+
+  try {
+    const data = jwt.verify(authorization, 'secret_key');
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+
+  next();
+};
+
+module.exports = {
+  createToken,
+  validateToken,
+  validateTokenMiddleware,
+};

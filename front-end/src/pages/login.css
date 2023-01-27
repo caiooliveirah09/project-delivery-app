@@ -1,0 +1,31 @@
+.login-container > * {
+  margin: 0;
+  padding: 0;
+}
+
+.login-container {
+  align-items: flex-start;
+  background-color: antiquewhite;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  padding-top: 25px;
+  width: 100vw;
+}
+
+.login-form {
+  align-items: center;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+  min-height: 200px;
+  min-width: 300px;
+  width: 25vw;
+}
+
+.login-form > input, button {
+  height: 25px;
+  width: 90%;
+}
