@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Nav from '../components/nav';
 import api from '../services/api';
 
 function Admin() {
-  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user')));
-
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,8 +10,6 @@ function Admin() {
 
   const [isDisabled, setIsDisabled] = useState(true);
   const [isInvalid, setIsInvalid] = useState(false);
-
-  const navigate = useNavigate();
 
   const validateUserData = () => {
     const minLengthPassword = 6;
@@ -39,19 +34,13 @@ function Admin() {
     }
   };
 
-  const logout = () => {
-    setUserData({});
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
-
   useEffect(() => {
     setIsDisabled(validateUserData());
   }, [userName, email, password, role]);
 
   return (
     <>
-      { userData && <Nav userData={ userData } logout={ logout } />}
+      <Nav />
       <fieldset>
         <legend>Admin Manage Users</legend>
         <div>
