@@ -15,7 +15,7 @@ const validateLogin = async (email, senha) => {
 
   const result = validatePassword(senha, user.password);
   if (!result) return { status: 401, message: { message: ' Email or Password Incorrect' } };
-  const { password, id, ...notPassword } = user.dataValues;
+  const { password, ...notPassword } = user.dataValues;
 
   const token = createToken(notPassword);
   return { status: 200, message: { ...notPassword, token } };
@@ -33,14 +33,21 @@ const createUser = async (userData) => {
   const hash = createHash(userData.password);
   const newUser = await User
     .create({ name, email, password: hash, role: userData.role || 'customer' });
-  const { password, id, ...notPassword } = newUser.dataValues;
+  const { password, ...notPassword } = newUser.dataValues;
 
   const token = createToken(notPassword);
   return { status: 201, message: { ...notPassword, token } };
 };
 
+  const getSellers = async () => {
+    const sellers = await User.findAll({ where: { role: 'seller' } });
+    const nameSellers = sellers.map((seller) => ({ name: seller.name, id: seller.id }));
+    return { status: 200, message: nameSellers };
+  };
+
 module.exports = {
   findUser,
   validateLogin,
   createUser,
+  getSellers,
 };
