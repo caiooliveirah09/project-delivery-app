@@ -1,7 +1,16 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function Nav(props) {
-  const { userData, logout } = props;
+export default function Nav() {
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user')));
+  const navigate = useNavigate();
+  const logout = () => {
+    setUserData({});
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
   return (
     <nav>
       <button
@@ -22,7 +31,8 @@ export default function Nav(props) {
         data-testid="customer_products__element-navbar-user-full-name"
         type="button"
       >
-        { userData.name }
+
+        {userData && userData.name }
 
       </button>
       <button

@@ -1,4 +1,4 @@
-function PostCategorySchema (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const SaleProductTable = sequelize.define('SaleProduct',
   {
     sale_id: {
