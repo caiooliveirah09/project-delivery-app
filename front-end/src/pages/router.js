@@ -6,6 +6,7 @@ import Admin from './admin';
 import SellerOrders from './sellerOrders';
 import CustomerCheckout from './customerCheckout';
 import CustomerOrderDetails from './customerOrderDetails';
+import CustomerOrders from './customerOrders';
 
 function Router() {
   return (
@@ -19,6 +20,7 @@ function Router() {
         <Route path="/seller/orders" element={ <SellerOrders /> } />
         <Route path="/customer/checkout" element={ <CustomerCheckout /> } />
         <Route path="/customer/orders/:id" element={ <CustomerOrderDetails /> } />
+        <Route path="/customer/orders" element={ <CustomerOrders /> } />
       </Routes>
     </BrowserRouter>
   );
