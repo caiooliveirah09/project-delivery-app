@@ -1,4 +1,4 @@
-const { Sale, SaleProduct } = require('../database/models');
+const { Sale, SaleProduct, Product } = require('../database/models');
 
 const createSale = async (body) => {
   const { totalPrice, deliveryAddress, deliveryNumber, saleDate, status,
@@ -22,6 +22,14 @@ const createSale = async (body) => {
   return { status: 201, message: sale };
 };
 
+const getSale = async (id) => {
+  const sale = await Sale
+    .findOne({
+      where: { id },
+      include: [{ model: Product, as: 'products', through: { attributes: ['quantity'] } }] });
+  return { status: 200, message: sale };
+};
+
 const getAllSales = async () => {
   const products = await Sale.findAll();
   return { status: 200, message: products };
@@ -29,5 +37,6 @@ const getAllSales = async () => {
 
 module.exports = {
   createSale,
+  getSale,
   getAllSales,
 };

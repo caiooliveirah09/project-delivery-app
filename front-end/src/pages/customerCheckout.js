@@ -69,7 +69,7 @@ function CustomerCheckout() {
       },
       { headers: { Authorization: token } },
     );
-    navigate(`customer/orders/${result.data.id}`);
+    navigate(`/customer/orders/${result.data.id}`);
   };
 
   return (

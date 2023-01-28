@@ -39,15 +39,21 @@ const createUser = async (userData) => {
   return { status: 201, message: { ...notPassword, token } };
 };
 
-  const getSellers = async () => {
+  const findAllSellers = async () => {
     const sellers = await User.findAll({ where: { role: 'seller' } });
     const nameSellers = sellers.map((seller) => ({ name: seller.name, id: seller.id }));
     return { status: 200, message: nameSellers };
   };
 
+  const findUserById = async (id) => {
+    const user = await User.findOne({ where: { id } });
+    const { password, ...rest } = user.dataValues;
+    return { status: 200, message: rest };
+  };
 module.exports = {
   findUser,
   validateLogin,
   createUser,
-  getSellers,
+  findAllSellers,
+  findUserById,
 };
