@@ -11,13 +11,20 @@ const getSale = async (req, res) => {
   return res.status(status).json(message);
 };
 
-const getAllSales = async (req, res) => {
+const getAllSales = async (_req, res) => {
   const { status, message } = await salesService.getAllSales();
   return res.status(status).json(message);
+};
+
+const getUserOrders = async (req, res) => {
+  const { id } = req.params;
+  const { status, message } = await salesService.getUserOrders(id);
+  return res.status(status).json(message);  
 };
 
 module.exports = {
   createSale,
   getSale,
   getAllSales,
+  getUserOrders,
 };
