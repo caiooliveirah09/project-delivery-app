@@ -1,83 +1,128 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Nav from '../components/nav';
 import api from '../services/api';
 
 function SellerOrdersDetails() {
+  const [sell, setSell] = useState([]);
   const { pathname } = window.location;
   const idOrder = pathname.split('/')[3];
   const orderApi = async () => {
     const data = await api.get(`/sales_products/${idOrder}`);
-    // console.log(data.data);
+    console.log(data);
+    setSell(data.data);
     return data;
   };
+  const items = [
+    'Item',
+    'Descrição',
+    'Quantidade',
+    'Valor Unitário',
+    'Sub-total',
+  ];
+  const custom = 'seller_order_details__';
 
   useEffect(() => {
     orderApi();
   }, []);
 
+  useEffect(() => {
+  }, [sell]);
+
   return (
     <>
       <Nav />
-      {/* {cart
-
+      {sell.length > 0
         ? (
-          <table>
-            <thead>
-              <tr>
-                {items.map((element, index) => (
-                  <th key={ index }>{element}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              { cart.map((product, index) => (
-                <tr key={ index }>
-                  <th
-                    data-testid={ `${custom}element-order-table-item-number-${index}` }
-                  >
-                    {index + 1}
-                  </th>
-                  <th
-                    data-testid={ `${custom}element-order-table-name-${index}` }
-                  >
-                    {product.name}
+          <div>
+            <span>PEDIDO</span>
+            <spam data-testid={ `${custom}element-order-details-label-order-id` }>
+              {sell[0].id}
+            </spam>
+            <spam data-testid={ `${custom}element-order-details-label-order-date` }>
+              {sell[0].saleDate}
+            </spam>
+            <spam
+              data-testid={ `${custom}element-order-details-label-delivery-status` }
+            >
+              {sell[0].status}
 
-                  </th>
-                  <th
-                    data-testid={ `${custom}element-order-table-quantity-${index}` }
-                  >
-                    {product.quantity}
+            </spam>
+            <button
+              type="button"
+              data-testid={ `${custom}button-preparing-check` }
+            >
+              PREPARAR PEDIDO
 
-                  </th>
-                  <th
-                    data-testid={ `${custom}element-order-table-unit-price-${index}` }
-                  >
-                    {product.price.replace(/\./, ',')}
+            </button>
+            <button
+              type="button"
+              data-testid={ `${custom}button-dispatch-check` }
+            >
+              SAIU PARA ENTREGA
 
-                  </th>
-
-                  <th
-                    data-testid={ `${custom}element-order-table-sub-total-${index}` }
-                  >
-                    {(product.price * product.quantity).toFixed(2).replace(/\./, ',')}
-
-                  </th>
-
-                  <th>
-                    <button
-                      data-testid={ `${custom}element-order-table-remove-${index}` }
-                      type="button"
-                      onClick={ removeItem }
-                      id={ index }
-                    >
-                      REMOVE
-
-                    </button>
-                  </th>
+            </button>
+          </div>) : <div>Carregando</div>}
+      {sell.length > 0
+        ? (
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  {items.map((element, index) => (
+                    <th key={ index }>{element}</th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>) : <p>Carregandodo</p>} */}
+              </thead>
+              <tbody>
+                { sell[0].products.map((product, index) => (
+                  <tr key={ index }>
+                    <th
+                      data-testid={ `${custom}element-order-table-item-number-${index}` }
+                    >
+                      {index + 1}
+                    </th>
+                    <th
+                      data-testid={ `${custom}element-order-table-name-${index}` }
+                    >
+                      {product.name}
+
+                    </th>
+                    <th
+                      data-testid={ `${custom}element-order-table-quantity-${index}` }
+                    >
+                      {product.SaleProduct.quantity}
+
+                    </th>
+                    <th
+                      data-testid={ `${custom}element-order-table-unit-price-${index}` }
+                    >
+                      {product.price
+                        .replace(/\./, ',')}
+
+                    </th>
+
+                    <th
+                      data-testid={ `${custom}element-order-table-sub-total-${index}` }
+                    >
+                      {(product.price * product.SaleProduct.quantity)
+                        .toFixed(2).replace(/\./, ',')}
+
+                    </th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <strong>
+              <span>Total: R$</span>
+              <span
+                data-testid={ `${custom}element-order-total-price` }
+              >
+                {sell[0].totalPrice}
+              </span>
+            </strong>
+          </div>
+        ) : <p>Carregando</p>}
     </>
   );
 }
