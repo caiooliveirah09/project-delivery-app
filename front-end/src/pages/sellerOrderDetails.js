@@ -7,7 +7,7 @@ function SellerOrdersDetails() {
   const idOrder = pathname.split('/')[3];
   const orderApi = async () => {
     const data = await api.get(`/sales_products/${idOrder}`);
-    console.log(data.data);
+    // console.log(data.data);
     return data;
   };
 

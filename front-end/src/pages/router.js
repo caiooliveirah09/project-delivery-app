@@ -5,12 +5,9 @@ import Register from './register';
 import Admin from './admin';
 import SellerOrders from './sellerOrders';
 import CustomerCheckout from './customerCheckout';
-<<<<<<< HEAD
 import CustomerOrderDetails from './customerOrderDetails';
 import CustomerOrders from './customerOrders';
-=======
 import SellerOrdersDetails from './sellerOrderDetails';
->>>>>>> 5d6f6e38 (grupo 08 estrutura)
 
 function Router() {
   return (
@@ -23,12 +20,9 @@ function Router() {
         <Route path="/admin/manage" element={ <Admin /> } />
         <Route path="/seller/orders" element={ <SellerOrders /> } />
         <Route path="/customer/checkout" element={ <CustomerCheckout /> } />
-<<<<<<< HEAD
         <Route path="/customer/orders/:id" element={ <CustomerOrderDetails /> } />
         <Route path="/customer/orders" element={ <CustomerOrders /> } />
-=======
         <Route path="/seller/orders/:id" element={ <SellerOrdersDetails /> } />
->>>>>>> 5d6f6e38 (grupo 08 estrutura)
       </Routes>
     </BrowserRouter>
   );
