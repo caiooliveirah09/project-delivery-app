@@ -1,9 +1,19 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 function OrderCard(props) {
   const { orderId, orderStatus, orderPrice, orderDate } = props;
+  const myDate = new Date(orderDate);
+  const fixedDate = `${
+    myDate.getDate()}/01/${myDate.getFullYear()}`;
+  const navigate = useNavigate();
+
+  const navigateToDetails = () => {
+    navigate(`/customer/orders/${orderId}`);
+  };
+
   return (
-    <div>
+    <div onClick={ navigateToDetails }>
       <p data-testid={ `customer_orders__element-order-id-${orderId}` }>
         Pedido
         {orderId}
@@ -17,13 +27,13 @@ function OrderCard(props) {
       <h2
         data-testid={ `customer_orders__element-card-price-${orderId}` }
       >
-        { orderPrice }
+        { orderPrice.replace(/\./, ',') }
 
       </h2>
       <h2
         data-testid={ `customer_orders__element-order-date-${orderId}` }
       >
-        { orderDate }
+        { fixedDate }
 
       </h2>
     </div>

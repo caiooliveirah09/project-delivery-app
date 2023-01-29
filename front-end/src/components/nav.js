@@ -12,6 +12,10 @@ export default function Nav() {
     navigate('/login');
   };
 
+  const navigateToProducts = () => {
+    navigate('/customer/products');
+  };
+
   const navigateToOrders = () => {
     navigate('/customer/orders');
   };
@@ -21,6 +25,7 @@ export default function Nav() {
       <button
         data-testid="customer_products__element-navbar-link-products"
         type="button"
+        onClick={ navigateToProducts }
       >
         PRODUTOS
       </button>

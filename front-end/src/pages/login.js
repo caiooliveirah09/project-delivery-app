@@ -40,6 +40,13 @@ function Login() {
     setIsDisabled(validateEmailAndPassword());
   }, [email, password]);
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      handleNavigate(user.role);
+    }
+  }, []);
+
   return (
     <div className="login-page">
       <div className="login-container">
