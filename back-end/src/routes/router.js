@@ -7,6 +7,7 @@ const registerRoute = require('./register.route');
 const salesRoute = require('./sales.route');
 const userRoute = require('./user.route');
 const adminRoute = require('./admin.route');
+const salesProductRoute = require('./salesProduct.route ');
 
 const router = express.Router();
 
@@ -15,6 +16,7 @@ router.use('/products', productsRoute);
 router.use('/register', registerRoute);
 router.use('/users', userRoute);
 router.use('/sales', salesRoute);
+router.use('/sales_products', salesProductRoute);
 router.use('/admin', jwtUtils.validateTokenMiddleware, adminRoute);
 
 module.exports = router;

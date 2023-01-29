@@ -1,3 +1,5 @@
+const { getProducts } = require("../../service/products.service")
+
 module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     id: {
