@@ -36,7 +36,7 @@ const getAllSales = async () => {
 };
 
 const getUserOrders = async (id) => {
-  const orders = await Sale.findAll({ where: { userId: id }});
+  const orders = await Sale.findAll({ where: { userId: id } });
   return { status: 200, message: orders };
 };
 

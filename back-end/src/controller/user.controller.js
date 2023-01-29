@@ -37,5 +37,5 @@ module.exports = {
   createUser,
   findAllSellers,
   findUserById,
-  findUserByEmail
+  findUserByEmail,
 };
