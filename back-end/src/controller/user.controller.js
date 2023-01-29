@@ -26,9 +26,16 @@ const findUserById = async (req, res) => {
   return res.status(status).json(message);
 };
 
+const findUserByEmail = async (req, res) => {
+  const { email } = req.body;
+  const user = await userService.findUser(email);
+  return res.status(200).json(user);
+};
+
 module.exports = {
   validateLogin,
   createUser,
   findAllSellers,
   findUserById,
+  findUserByEmail
 };
