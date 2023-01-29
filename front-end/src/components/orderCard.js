@@ -13,7 +13,11 @@ function OrderCard(props) {
   };
 
   return (
-    <div onClick={ navigateToDetails }>
+    <div
+      onClick={ navigateToDetails }
+      onKeyDown={ navigateToDetails }
+      role="presentation"
+    >
       <p data-testid={ `customer_orders__element-order-id-${orderId}` }>
         Pedido
         {orderId}
