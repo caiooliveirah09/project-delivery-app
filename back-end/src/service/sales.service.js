@@ -35,8 +35,14 @@ const getAllSales = async () => {
   return { status: 200, message: products };
 };
 
+const getUserOrders = async (id) => {
+  const orders = await Sale.findAll({ where: { userId: id } });
+  return { status: 200, message: orders };
+};
+
 module.exports = {
   createSale,
   getSale,
   getAllSales,
+  getUserOrders,
 };
