@@ -7,6 +7,7 @@ import SellerOrders from './sellerOrders';
 import CustomerCheckout from './customerCheckout';
 import CustomerOrderDetails from './customerOrderDetails';
 import CustomerOrders from './customerOrders';
+import SellerOrdersDetails from './sellerOrderDetails';
 
 function Router() {
   return (
@@ -21,6 +22,7 @@ function Router() {
         <Route path="/customer/checkout" element={ <CustomerCheckout /> } />
         <Route path="/customer/orders/:id" element={ <CustomerOrderDetails /> } />
         <Route path="/customer/orders" element={ <CustomerOrders /> } />
+        <Route path="/seller/orders/:id" element={ <SellerOrdersDetails /> } />
       </Routes>
     </BrowserRouter>
   );
