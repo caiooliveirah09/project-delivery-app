@@ -6,14 +6,9 @@ const moment = require('moment');
 
 function SellerOrdersDetails() {
   const [sell, setSell] = useState([]);
+  // const [prep, setPrep] = useState(false);
   const { pathname } = window.location;
   const idOrder = pathname.split('/')[3];
-  const orderApi = async () => {
-    const data = await api.get(`/sales_products/${idOrder}`);
-    console.log(data);
-    setSell(data.data);
-    return data;
-  };
   const items = [
     'Item',
     'Descrição',
@@ -22,6 +17,17 @@ function SellerOrdersDetails() {
     'Sub-total',
   ];
   const custom = 'seller_order_details__';
+
+  const orderApi = async () => {
+    const data = await api.get(`/sales_products/${idOrder}`);
+    console.log(data);
+    setSell(data.data);
+    return data;
+  };
+
+  const statusButton = async (status) => {
+    await api.put(`/sales_products/${idOrder}`, { status });
+  };
 
   useEffect(() => {
     orderApi();
@@ -53,6 +59,8 @@ function SellerOrdersDetails() {
             <button
               type="button"
               data-testid={ `${custom}button-preparing-check` }
+              onClick={ () => statusButton('Preparando') }
+              disabled={ (sell[0].status !== 'Pendente') }
             >
               PREPARAR PEDIDO
 
@@ -60,7 +68,8 @@ function SellerOrdersDetails() {
             <button
               type="button"
               data-testid={ `${custom}button-dispatch-check` }
-              disabled
+              disabled={ (sell[0].status !== 'Preparando') }
+              onClick={ () => statusButton('Em Trânsito') }
             >
               SAIU PARA ENTREGA
 

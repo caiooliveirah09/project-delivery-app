@@ -9,6 +9,12 @@ const getOrderById = async (id) => {
   return { status: 200, message: order };
 };
 
+const updateOrderStatusById = async (id, status) => {
+  const update = await Sale.update({ status }, { where: { id } });
+  return update;
+};
+
 module.exports = {
   getOrderById,
+  updateOrderStatusById,
 };
