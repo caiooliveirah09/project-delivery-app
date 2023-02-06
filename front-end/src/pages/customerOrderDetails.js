@@ -34,7 +34,9 @@ function CustomerOrderDetails() {
       const day = new Date(data.saleDate).getUTCDate();
       const month = new Date(data.saleDate).getUTCMonth();
       const year = new Date(data.saleDate).getFullYear();
-      setDate(`${day}/${month + 1 < nine ? `0${month + 1}` : month + 1}/${year}`);
+      setDate(`${day < nine ? `0${day}` : day}`
+      + `/${month + 1 < nine ? `0${month + 1}` : month + 1}`
+      + `/${year}`);
       const cartMAP = data
         .products.map(({ name, price, SaleProduct }) => ({
           name, price, quantity: SaleProduct.quantity }));
