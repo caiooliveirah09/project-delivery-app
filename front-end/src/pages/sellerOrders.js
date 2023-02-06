@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from '../components/nav';
-import OrderCard from '../components/orderCard';
 import api from '../services/api';
 
 function SellerOrders() {
