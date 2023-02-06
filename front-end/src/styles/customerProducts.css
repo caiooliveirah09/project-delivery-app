@@ -1,0 +1,35 @@
+.customerProducts-div {
+  background-color: lightgray;
+  height: 100%;
+}
+
+.customerProducts-cards {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.customerProducts-cart-button {
+  border: 0;
+  box-shadow: 2px 2px 5px gray;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: #3f3d56;
+  height: 10%;
+  width: 20%;
+  border-radius: 4px;
+  font-size: 30px;
+  color: white;
+}
+
+.customerProducts-cart-button[disabled] {
+  background-color: lightgray;
+}
+
+/*.customerProducts-cart-div {
+}*/

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import '../styles/card.css';
 
 function Card(props) {
   const { product, setExpense } = props;
@@ -33,42 +34,53 @@ function Card(props) {
   }, [quantity]);
 
   return (
-    <div style={ { border: '2px solid #3f3d56' } }>
+    <div className="card-div">
       <p
+        className="card-price"
         data-testid={ `customer_products__element-card-price-${id}` }
       >
+        {' '}
+        R$
         { price.replace(/\./, ',') }
       </p>
       <img
+        className="card-image"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
         alt={ name }
-        style={ { width: 100 } }
       />
-      <p data-testid={ `customer_products__element-card-title-${id}` }>
+      <p
+        className="card-title"
+        data-testid={ `customer_products__element-card-title-${id}` }
+      >
         { name }
       </p>
-      <button
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-        type="button"
-        onClick={ rm }
-      >
-        -
+      <div className="card-button-input">
+        <button
+          className="card-button"
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          type="button"
+          onClick={ rm }
+        >
+          -
 
-      </button>
-      <input
-        data-testid={ `customer_products__input-card-quantity-${id}` }
-        value={ quantity }
-        onChange={ saveItens }
-      />
-      <button
-        data-testid={ `customer_products__button-card-add-item-${id}` }
-        type="button"
-        onClick={ add }
-      >
-        +
+        </button>
+        <input
+          className="card-input"
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ quantity }
+          onChange={ saveItens }
+        />
+        <button
+          className="card-button"
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+          type="button"
+          onClick={ add }
+        >
+          +
 
-      </button>
+        </button>
+      </div>
     </div>
   );
 }

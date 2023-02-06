@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from '../components/nav';
 import api from '../services/api';
+import '../styles/sellerOrders.css';
 
 function SellerOrders() {
   const [sales, setSales] = useState([]);
@@ -43,33 +44,41 @@ function SellerOrders() {
   }
 
   return (
-    <>
+    <div className="sellerOrders-div">
       <Nav />
-      <fieldset>
-        <legend>Seller Orders</legend>
+      <h1 className="sellerOrders-title">PEDIDOS</h1>
+      <div className="sellerOrders-cards">
         {
           sales.map((sale) => (
             <button
+              className="sellerOrders-card"
               key={ sale.id }
               type="button"
               onClick={ () => navigate(`/seller/orders/${sale.id}`) }
             >
-              <p data-testid={ `${testIds.id}${sale.id}` }>{ sale.id }</p>
+              <div>
+                <p>Pedido</p>
+                <p data-testid={ `${testIds.id}${sale.id}` }>{ sale.id }</p>
+              </div>
               <p data-testid={ `${testIds.status}${sale.id}` }>{sale.status}</p>
-              <p data-testid={ `${testIds.date}${sale.id}` }>{setDate(sale.saleDate)}</p>
-              <p data-testid={ `${testIds.address}${sale.id}` }>
-                {`${sale.deliveryAddress}, ${sale.deliveryNumber}`}
-              </p>
-              <strong>
+              <div>
+                <p data-testid={ `${testIds.date}${sale.id}` }>
+                  {setDate(sale.saleDate)}
+
+                </p>
                 <p data-testid={ `${testIds.price}${sale.id}` }>
                   {formatCurrency(sale.totalPrice)}
                 </p>
-              </strong>
+                <p data-testid={ `${testIds.address}${sale.id}` }>
+                  {`${sale.deliveryAddress}, ${sale.deliveryNumber}`}
+                </p>
+
+              </div>
             </button>
           ))
         }
-      </fieldset>
-    </>
+      </div>
+    </div>
   );
 }
 

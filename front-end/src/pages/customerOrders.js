@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Nav from '../components/nav';
 import OrderCard from '../components/orderCard';
 import api from '../services/api';
+import '../styles/customerOrders.css';
 
 function CustomerOrders() {
   const [userData] = useState(JSON.parse(localStorage.getItem('user')));
@@ -21,17 +22,20 @@ function CustomerOrders() {
   }, []);
 
   return (
-    <div>
+    <div className="customerOrders-div">
       <Nav />
-      { isLoaded && orders.map((order) => (
-        <OrderCard
-          key={ order.id }
-          orderId={ order.id }
-          orderStatus={ order.status }
-          orderPrice={ order.totalPrice }
-          orderDate={ order.saleDate }
-        />
-      ))}
+      <h1 className="customerOrders-title">PEDIDOS</h1>
+      <div className="customerOrders-div-card">
+        { isLoaded && orders.map((order) => (
+          <OrderCard
+            key={ order.id }
+            orderId={ order.id }
+            orderStatus={ order.status }
+            orderPrice={ order.totalPrice }
+            orderDate={ order.saleDate }
+          />
+        ))}
+      </div>
     </div>
   );
 }

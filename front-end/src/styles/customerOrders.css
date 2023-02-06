@@ -1,0 +1,18 @@
+.customerOrders-title{
+  background-color: lightgray;
+  font-weight: 350;
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.customerOrders-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.customerOrders-div-card {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}

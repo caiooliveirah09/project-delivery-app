@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Nav from '../components/nav';
 import Card from '../components/card';
 import api from '../services/api';
+import '../styles/customerProducts.css';
 
 function CustomerProducts() {
   const [products, setProducts] = useState([]);
@@ -32,30 +33,33 @@ function CustomerProducts() {
   }, [expense]);
 
   return (
-    <div>
-      <Nav />
-      <div>
-        { apiIsLoaded && products.map((product) => (
-          <Card key={ product.id } product={ product } setExpense={ setExpense } />
-        ))}
-      </div>
-      <div>
-        <button
-          data-testid="customer_products__button-cart"
-          type="button"
-          onClick={ () => navigate('/customer/checkout') }
-          disabled={ isDisabled }
-        >
-          <span> Ver Carrinho: R$ </span>
-          <span
-            data-testid="customer_products__checkout-bottom-value"
+    <main>
+      <div className="customerProducts-div">
+        <Nav />
+        <div className="customerProducts-cards">
+          { apiIsLoaded && products.map((product) => (
+            <Card key={ product.id } product={ product } setExpense={ setExpense } />
+          ))}
+        </div>
+        <div className="customerProducts-cart-div">
+          <button
+            className="customerProducts-cart-button"
+            data-testid="customer_products__button-cart"
+            type="button"
+            onClick={ () => navigate('/customer/checkout') }
+            disabled={ isDisabled }
           >
-            { expense.toFixed(2).replace(/\./, ',') }
-          </span>
+            <span> VER CARRINHO: R$ </span>
+            <span
+              data-testid="customer_products__checkout-bottom-value"
+            >
+              { expense.toFixed(2).replace(/\./, ',') }
+            </span>
 
-        </button>
+          </button>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
 

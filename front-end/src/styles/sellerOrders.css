@@ -1,0 +1,33 @@
+.sellerOrders-div {
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.sellerOrders-card {
+  width: 20.0%;
+  height: 100;
+  background-color: lightgray;
+  margin: 10px;
+  text-align: center;
+  line-height: 4px;
+  border: 0;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sellerOrders-title {
+  background-color: lightgray;
+  font-weight: 350;
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.sellerOrders-cards {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}

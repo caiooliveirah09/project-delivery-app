@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../styles/orderCard.css';
 
 function OrderCard(props) {
   const { orderId, orderStatus, orderPrice, orderDate } = props;
@@ -22,34 +23,42 @@ function OrderCard(props) {
   });
 
   return (
-    <div
+    <button
+      className="orderCard-button"
       onClick={ navigateToDetails }
       onKeyDown={ navigateToDetails }
-      role="presentation"
+      type="button"
     >
-      <p data-testid={ `customer_orders__element-order-id-${orderId}` }>
-        Pedido
-        {orderId}
-      </p>
-      <h1
+      <div>
+        <p>Pedido</p>
+        <p data-testid={ `customer_orders__element-order-id-${orderId}` }>
+          {' '}
+          {orderId}
+        </p>
+      </div>
+      <p
         data-testid={ `customer_orders__element-delivery-status-${orderId}` }
       >
         { orderStatus }
 
-      </h1>
-      <h2
-        data-testid={ `customer_orders__element-card-price-${orderId}` }
-      >
-        { orderPrice.replace(/\./, ',') }
+      </p>
+      <div>
+        <p
+          data-testid={ `customer_orders__element-order-date-${orderId}` }
+        >
+          { date }
 
-      </h2>
-      <h2
-        data-testid={ `customer_orders__element-order-date-${orderId}` }
-      >
-        { date }
+        </p>
+        <p
+          data-testid={ `customer_orders__element-card-price-${orderId}` }
+        >
+          {' '}
+          R$
+          { orderPrice.replace(/\./, ',') }
 
-      </h2>
-    </div>
+        </p>
+      </div>
+    </button>
   );
 }
 

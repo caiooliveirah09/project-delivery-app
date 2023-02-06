@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400;500;600;700;800;900&display=swap') ;
+
+.nav-div {
+  background-color: #3f3d56;
+}
+
+.nav-comp * {
+  margin: 0;
+  padding: 0;
+  font-family: Unbounded, cursive;
+  border: 0px;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
+} 
+
+.nav-btn {
+  background-color: #3f3d56;
+  color: white;
+  width: 140px;
+  height: 40px;
+  font-size: 12px;
+  font-weight: 450;
+  margin-right: 5px;
+}
+
+.logout-btn {
+  background-color: #f50057;
+  color: white;
+  width: 140px;
+  height: 40px;
+  font-size: 12px;
+  font-weight: 450;
+  float: right;
+}
