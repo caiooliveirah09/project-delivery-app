@@ -27,6 +27,7 @@ function SellerOrdersDetails() {
 
   const statusButton = async (status) => {
     await api.put(`/sales_products/${idOrder}`, { status });
+    orderApi();
   };
 
   useEffect(() => {
@@ -34,7 +35,6 @@ function SellerOrdersDetails() {
   }, []);
 
   useEffect(() => {
-    // console.log(sell[0].saleDate);
   }, [sell]);
 
   return (
@@ -44,18 +44,18 @@ function SellerOrdersDetails() {
         ? (
           <div>
             <span>PEDIDO</span>
-            <spam data-testid={ `${custom}element-order-details-label-order-id` }>
+            <p data-testid={ `${custom}element-order-details-label-order-id` }>
               {sell[0].id}
-            </spam>
-            <spam data-testid={ `${custom}element-order-details-label-order-date` }>
+            </p>
+            <p data-testid={ `${custom}element-order-details-label-order-date` }>
               {moment(sell[0].saleDate).format('DD/MM/YYYY')}
-            </spam>
-            <spam
+            </p>
+            <p
               data-testid={ `${custom}element-order-details-label-delivery-status` }
             >
               {sell[0].status}
 
-            </spam>
+            </p>
             <button
               type="button"
               data-testid={ `${custom}button-preparing-check` }

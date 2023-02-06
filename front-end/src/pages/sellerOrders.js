@@ -5,11 +5,12 @@ import api from '../services/api';
 
 function SellerOrders() {
   const [sales, setSales] = useState([]);
+  const [userData] = useState(JSON.parse(localStorage.getItem('user')));
 
   const navigate = useNavigate();
 
   async function getSales() {
-    const result = await api.get('/sales');
+    const result = await api.get(`/sales/seller/${userData.id}`);
     console.log(result.data);
     setSales(result.data);
   }
@@ -43,7 +44,7 @@ function SellerOrders() {
               type="button"
               onClick={ () => navigate(`/seller/orders/${sale.id}`) }
             >
-              <p data-testid={ `${testIds.id}${sale.id}` }>{sale.id}</p>
+              <p data-testid={ `${testIds.id}${sale.id}` }>{ sale.id }</p>
               <p data-testid={ `${testIds.status}${sale.id}` }>{sale.status}</p>
               <p data-testid={ `${testIds.date}${sale.id}` }>{sale.saleDate}</p>
               <p data-testid={ `${testIds.address}${sale.id}` }>

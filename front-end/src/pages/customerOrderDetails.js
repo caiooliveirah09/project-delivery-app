@@ -11,6 +11,7 @@ function CustomerOrderDetails() {
   const [seller, setSeller] = useState();
   const [status, setStatus] = useState();
   const [date, setDate] = useState();
+  const [isDisabled, setIsDisabled] = useState(true);
   const nine = 9;
   const thead = [
     'Item',
@@ -29,6 +30,7 @@ function CustomerOrderDetails() {
       setSeller(sellerGET.data);
       setExpense(data.totalPrice.replace(/\./, ','));
       setStatus(data.status);
+      if (data.status === 'Em Trânsito') setIsDisabled(false);
       const day = new Date(data.saleDate).getUTCDate();
       const month = new Date(data.saleDate).getUTCMonth();
       const year = new Date(data.saleDate).getFullYear();
@@ -40,6 +42,12 @@ function CustomerOrderDetails() {
     };
     getSale();
   }, []);
+
+  const statusButton = async () => {
+    await api.put(`/sales_products/${id}`, { status: 'Entregue' });
+    setStatus('Entregue');
+    setIsDisabled(true);
+  };
 
   return (
     <div>
@@ -73,7 +81,8 @@ function CustomerOrderDetails() {
       <button
         type="button"
         data-testid={ `${custom2}button-delivery-check` }
-        disabled="true"
+        disabled={ isDisabled }
+        onClick={ statusButton }
       >
         MARCAR COMO ENTREGUE
 

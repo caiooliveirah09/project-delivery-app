@@ -17,7 +17,8 @@ export default function Nav() {
   };
 
   const navigateToOrders = () => {
-    navigate('/customer/orders');
+    if (userData.role === 'seller') navigate('/seller/orders');
+    if (userData.role === 'customer') navigate('/customer/orders');
   };
 
   return (
